@@ -289,54 +289,42 @@ include "koneksi.php";
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="bg-light py-5 bg-dark">
-        <div class="container bg-pink p-5 rounded">
-            <h1 class="text-center text-light fw-bold mb-4">Gallery</h1>
-            <div id="carouselExampleCaptions" class="carousel slide">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
-                        aria-current="true" aria-label="Slide 1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
-                        aria-label="Slide 2"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
-                        aria-label="Slide 3"></button>
-                </div>
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <img src="1313940.png" class="d-block w-100 img-fluid" style="height: 650px; object-fit: cover;"
-                            alt="foto 1">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Guts</h5>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="1163428.jpg" class="d-block w-100 img-fluid" style="height: 650px; object-fit: cover;"
-                            alt="foto 2">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Griffith</h5>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="669308.jpg" class="d-block w-100 img-fluid" style="height: 650px; object-fit: cover;"
-                            alt="foto 3">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h5>Guts and Griffith</h5>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
+    <section id="gallery" class="text-center p-5 bg-dark">
+  <div class="container">
+    <h1 class="fw-bold display-4 pb-3 text-white">Gallery</h1>
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <?php
+        $sql = "SELECT * FROM gallery ORDER BY tanggal DESC";
+        $hasil = $conn->query($sql);
+        $isActive = true; // Untuk menentukan slide pertama aktif
+        while ($row = $hasil->fetch_assoc()) {
+        ?>
+          <div class="carousel-item <?php if ($isActive) { echo 'active'; $isActive = false; } ?>">
+          <div class="d-flex justify-content-center">
+          <img src="img/<?= $row["gambar"] ?>" class="img-fluid" style="max-height: 400px;" alt="Gambar Gallery">
         </div>
-    </section>
+            <div class="carousel-caption d-none d-md-block">
+              <h5><?= $row["judul"] ?></h5>
+              <p><?= $row["tanggal"] ?></p>
+            </div>
+          </div>
+        <?php
+        }
+        ?>
+      </div>
+      <!-- Kontrol navigasi carousel -->
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+  </div>
+</section>
 
 
 
